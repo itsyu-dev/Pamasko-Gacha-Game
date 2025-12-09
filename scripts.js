@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const random = Math.random() * 100;
         let number;
 
-        if (random < 50) number = 20; // 50% chance
-        else if (random < 80) number = 50; // 30% chance
-        else if (random < 95) number = 100; // 15% chance
-        else number = 150; // 5% chance
+        if (random < 45) number = 20; 
+        else if (random < 80) number = 50; 
+        else if (random < 97) number = 100; 
+        else number = 150; 
 
         const resultDiv = document.getElementById("result");
         const messageDiv = document.getElementById("screenshotMessage");
@@ -40,7 +40,42 @@ document.addEventListener("DOMContentLoaded", function() {
 
         messageDiv.classList.add('show');
 
+        if (number === 150) {
+            showConfetti(); 
+            showGrandPrizeNotification(); 
+        }
+
         setTimeout(() => {
             resultDiv.classList.add('animate');
         }, 10);
+    }
+
+    function showConfetti() {
+        const confettiContainer = document.createElement('div');
+        confettiContainer.className = 'confetti-container';
+        document.body.appendChild(confettiContainer);
+
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confettiContainer.appendChild(confetti);
+        }
+
+        setTimeout(() => {
+            confettiContainer.remove(); 
+        }, 5000);
+    }
+
+    function showGrandPrizeNotification() {
+        const notification = document.createElement('div');
+        notification.className = 'grand-prize-notification';
+        notification.textContent = '🎉 Congratulations! You are the Grand Prize Winner! 🎉';
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove(); 
+        }, 5000);
     }
