@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pamasko Generator</title>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Crimson+Text:ital@0;1&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="top-title">🎄 Merry Christmas 🎄</div>
+    
+    <div class="message-directions">
+        <div class="message">Here is a fun little twist for Christmas. Since ninong is just about to start his OJT and does not have a stable source of income, here is a fun way I can give you your pamasko!</div>
+        <div class="directions">The mechanics here are simple: click the button to generate your pamasko then send a screenshot to ninong. Get a chance to win 20, 50, or 100 pesos, and a grand prize of 150 pesos.Strictly 1 try only.</div>
+        <div>Good luck, Inaanak!</div>
+    </div>
+
+<audio id="bgMusic" src="Christmas-bg.mp3" loop></audio>
+
+    <div class="container">
+        <h1>Pamasko Gacha 🎁</h1>
+        <p class="subtitle">The "Pamasko" you get is in your hands</p>
+
+        <div class="lights">
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+            <div class="light"></div>
+        </div>
+
+        <div class="decoration top-left">🎄</div>
+        <div class="decoration top-right">⭐</div>
+        <div class="decoration bottom-left">🎅</div>
+        <div class="decoration bottom-right">🎄</div>
+
+        <button class="generate-btn" onclick="generateNumber()">Generate</button>
+        <div id="result"></div>
+        <div class="screenshot-message" id="screenshotMessage">📸 Screenshot and send to ninong! 📸</div>
+    </div>
+
+    <!-- Link to external JavaScript -->
+    <script src="scripts.js"></script>
+
+    <footer style="margin-top: 40px; text-align: center; color: #fffbea; font-family: 'Mountains of Christmas', cursive;">
+        <p>Made by itsyu-dev</p>
+        <a href="https://github.com/itsyu-dev" target="_blank">
+            <img src="C:\Users\Yuhan\Salandanan\Skinship System\Skinship-System\Pamasko\Pamasko-Generator\Github-icon.png" alt="GitHub Profile" style="width: 30px; height: 30px; vertical-align: middle; opacity: 0.7;">
+        </a>
+    </footer>
+</body>
+</html>
+```
+
+Create a new file named `styles.css` and add the following content:
+
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    background: linear-gradient(135deg, #0f3d1e 0%, #1a5c2e 40%, #8b1a1a 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll; /* Ensure the scrollbar is always visible to prevent shaking */
+    padding: 30px 20px;
+}
+
+/* Top Merry Christmas Title */
+.top-title {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 72px;
+    font-weight: 700;
+    color: #fff9e6;
+    text-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.6),
+        3px 3px 10px rgba(0,0,0,0.5),
+        0 0 50px rgba(196, 30, 58, 0.4);
+    margin-bottom: 25px;
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 3px 3px 10px rgba(0,0,0,0.5); }
+    to { text-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 3px 3px 10px rgba(0,0,0,0.5), 0 0 60px rgba(196, 30, 58, 0.6); }
+}
+
+/* Snowflakes animation */
+.snowflake {
+    position: absolute;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    opacity: 0.8;
+    animation: fall linear infinite;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* Combined Message and Directions styling */
+.message-directions {
+    font-family: 'Crimson Text', serif;
+    color: #fff9e6;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(255, 249, 230, 0.4);
+    padding: 25px 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0 auto 30px auto;
+    max-width: 750px;
+    font-size: 1.15em;
+    line-height: 1.6;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.message-directions .message {
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.message-directions .directions {
+    font-weight: 600;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 50px 70px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    border: 6px solid #c41e3a;
+    width: 600px;
+    height: 400px;
+    max-width: none;
+}
+
+h1 {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 56px;
+    font-weight: 700;
+    color: #c41e3a;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-family: 'Crimson Text', serif;
+    font-size: 19px;
+    color: #2d5016;
+    margin-bottom: 35px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+button {
+    font-family: 'Playfair Display', serif;
+    padding: 22px 50px;
+    font-size: 26px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.5);
+    transition: all 0.3s ease;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(196, 30, 58, 0.7);
+    background: linear-gradient(135deg, #d42645 0%, #a00000 100%);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button::before {
+    content: '🎁';
+    margin-right: 12px;
+    font-size: 28px;
+}
+
+#result {
+    font-family: 'Playfair Display', serif;
+    font-size: 90px;
+    margin-top: 35px;
+    font-weight: 700;
+    color: #165b33;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    visibility: hidden; /* Hide the peso sign initially */
+}
+
+#result::before {
+    content: '₱';
+    font-size: 60px;
+    margin-right: 8px;
+}
+
+#result.show {
+    visibility: visible; /* Show the peso sign when the class 'show' is added */
+}
+
+#result.animate {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.screenshot-message {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 28px;
+    color: #c41e3a;
+    margin-top: 20px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.screenshot-message.show {
+    opacity: 1;
+}
+
+.decoration {
+    position: absolute;
+    font-size: 45px;
+    opacity: 0.7;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
+.decoration.top-left { top: 15px; left: 15px; }
+.decoration.top-right { top: 15px; right: 15px; }
+.decoration.bottom-left { bottom: 15px; left: 15px; }
+.decoration.bottom-right { bottom: 15px; right: 15px; }
+
+.lights {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+}
+
+.light {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    animation: glow 1.5s infinite alternate;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.light:nth-child(1) { background: #ff0000; animation-delay: 0s; }
+.light:nth-child(2) { background: #00ff00; animation-delay: 0.2s; }
+.light:nth-child(3) { background: #ffff00; animation-delay: 0.4s; }
+.light:nth-child(4) { background: #0000ff; animation-delay: 0.6s; }
+.light:nth-child(5) { background: #ff00ff; animation-delay: 0.8s; }
+.light:nth-child(6) { background: #ff0000; animation-delay: 1s; }
+.light:nth-child(7) { background: #00ff00; animation-delay: 1.2s; }
+
+@keyframes glow {
+    from { opacity: 0.5; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.3); box-shadow: 0 0 15px currentColor; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .top-title { font-size: 48px; }
+    .message-directions { 
+        font-size: 1em; 
+        padding: 20px;
+        max-width: 90%;
+    }
+    .container { padding: 40px 30px; }
+    h1 { font-size: 42px; }
+    button { font-size: 22px; padding: 18px 40px; }
+    #result { font-size: 70px; }
+}
+```
+
+Create a new file named `scripts.js` and add the following content:
+
+```javascript
+// Create snowflakes
+for (let i = 0; i < 60; i++) {
+    const snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
+    snowflake.textContent = '❄';
+    snowflake.style.left = Math.random() * 100 + '%';
+    snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    snowflake.style.animationDelay = Math.random() * 5 + 's';
+    snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+    document.body.appendChild(snowflake);
+}
+
+let canGenerate = true;
+const cooldownTime = 60 * 1000;
+
+function startCooldown() {
+    const button = document.querySelector('.generate-btn');
+    button.style.display = 'none';
+    canGenerate = false;
+
+    setTimeout(() => {
+        button.style.display = 'inline-block';
+        canGenerate = true;
+    }, cooldownTime);
+}
+
+function generateNumber() {
+    if (!canGenerate) return;
+
+    const random = Math.random() * 100;
+    let number;
+
+    if (random < 50) number = 20;
+    else if (random < 80) number = 50;
+    else if (random < 97) number = 100;
+    else number = 200;
+
+    const resultDiv = document.getElementById("result");
+    const messageDiv = document.getElementById("screenshotMessage");
+
+    resultDiv.textContent = number;
+    resultDiv.classList.remove('animate');
+    resultDiv.classList.add('show'); // Make the peso sign visible
+
+    // Show the screenshot message
+    messageDiv.classList.add('show');
+
+    startCooldown();
+
+    setTimeout(() => {
+        resultDiv.classList.add('animate');
+    }, 10);
+}
+
+document.addEventListener("click", function() {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) {
+        music.volume = 0.3;
+        music.play();
+    }
+});
